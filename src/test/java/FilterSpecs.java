@@ -70,5 +70,17 @@ public class FilterSpecs {
         List<Integer> evenNotPerfectNumbers = Filter.select(numbers,EVEN_PREDICATE.and(Predicate.not(PERFECT_PREDICATE)));
         assertThat(evenNotPerfectNumbers, hasItems(2));
     }
+    @Test
+    public void toFindSumoftheNumbers() {
+        List<Integer> numbers = Arrays.asList(5,7,10,5);
+        List<Integer>  sumOfNumbers = Filter.add(numbers);
+        assertThat(sumOfNumbers,hasItems(27));
+    }
+    @Test
+    public void itSelectsNumbersWithinRange(){
+        List<Integer> numbers = Arrays.asList(5,7,10,15);
+        List<Integer>  numberWithinRange = Filter.range(numbers,5,10);
+        assertThat(numberWithinRange, hasItems(5,7,10));
+    }
 
 }

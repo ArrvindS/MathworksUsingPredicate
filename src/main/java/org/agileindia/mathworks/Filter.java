@@ -14,4 +14,25 @@ public class Filter {
         }
         return selected;
     }
+    public static List<Integer> add(List<Integer> numbers){
+        int sum = 0;
+        List<Integer> selected = new ArrayList<>();
+        for(Integer number : numbers) {
+            sum += number;
+        }
+        selected.add(sum);
+        return selected;
+    }
+    private static boolean range(int number, int low, int high){
+        return (low <= number && number <= high);
+    }
+    public static List<Integer> range(List<Integer> numbers,int low , int high){
+        List<Integer> selected = new ArrayList<>();
+        for (Integer number : numbers) {
+            if (range(number,low,high)) {
+                selected.add(number);
+            }
+        }
+        return selected;
+    }
 }

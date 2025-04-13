@@ -107,7 +107,7 @@ public class NumbersSpecs {
 
         Numbers numbers = new Numbers(5,7,10,5);
 
-        int multiplicationValue = numbers.multiply();
+        int multiplicationValue = numbers.multiplication();
 
         assertThat(multiplicationValue,equalTo(1750));
     }
@@ -116,7 +116,7 @@ public class NumbersSpecs {
 
         Numbers numbers = new Numbers(5,7,10,15);
 
-        Numbers multipliedList = numbers.multiplyWithFactor(10);
+        Numbers multipliedList = numbers.multiplicationWithFactor(10);
 
         assertThat(multipliedList.hasItems(50,70,100,150),is(true));
     }}

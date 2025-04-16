@@ -1,8 +1,6 @@
 import org.agileindia.mathworks.Numbers;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,7 +27,7 @@ public class NumbersSpecs {
         Numbers numbers = new Numbers(1, 2, 3, 4);
 
 
-        Numbers even = numbers.select(EVEN_PREDICATE);
+        Numbers even = numbers.select(EVEN);
 
         assertThat(even.hasItems(2, 4),is(true));
 
@@ -47,13 +45,13 @@ public class NumbersSpecs {
     @Test
     public void itSelectsPrimeNumberUsingPredicate() {
 
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
+        Numbers numbers = new Numbers(1, 2, 3, 4);
 
-        List<Integer> evenNumbers = Numbers.select(numbers, PRIME_PREDICATE);
+        Numbers evens = numbers.select(PRIME_PREDICATE);
 
-        assertThat(evenNumbers, hasItems(2,3));
-
+        assertThat(evens.hasItems(2, 3), is(true));
     }
+
     @Test
     public void itSelectsOddOrPrimeUsingPredicate() {
 
@@ -69,7 +67,7 @@ public class NumbersSpecs {
 
         Numbers numbers = new Numbers(1,2,3,6,8,27,28);
 
-        Numbers evenAndPerfect = numbers.select(EVEN_PREDICATE.and(PERFECT_PREDICATE));
+        Numbers evenAndPerfect = numbers.select(EVEN.and(PERFECT_PREDICATE));
 
         assertThat(evenAndPerfect.size(), equalTo(2));
 
@@ -80,7 +78,7 @@ public class NumbersSpecs {
 
         Numbers numbers = new Numbers(1,2,3,6,8,27,28);
 
-        Numbers evenNotPerfect = numbers.select(EVEN_PREDICATE.and(Predicate.not(PERFECT_PREDICATE)));
+        Numbers evenNotPerfect = numbers.select(EVEN.and(Predicate.not(PERFECT_PREDICATE)));
 
         assertThat(evenNotPerfect.hasItems(2),is(true));
     }
@@ -94,29 +92,42 @@ public class NumbersSpecs {
         assertThat(sumOfNumbers,equalTo(27));
     }
     @Test
-    public void itSelectsNumbersWithinInRange(){
+    public void itSelectsNumbersWithinInIsInBetween(){
 
         Numbers numbers = new Numbers(5,7,10,15);
 
-        Numbers  numberWithinRange = numbers.inRange(5,10);
+        Numbers  numberWithinRange = numbers.inBetween(5,10);
 
         assertThat(numberWithinRange.hasItems(5,7,10),is(true));
     }
     @Test
-    public void toLearnMultiplicationOfNumbers(){
+    public void toLearnProductOfNumbers(){
 
         Numbers numbers = new Numbers(5,7,10,5);
 
-        int multiplicationValue = numbers.multiplication();
+        int multiplicationValue = numbers.product();
 
         assertThat(multiplicationValue,equalTo(1750));
     }
     @Test
-    public void toLearnMultiplicationWithFactorForNumbers(){
+    public void toMultiplyEachNumberByAFactor(){
 
         Numbers numbers = new Numbers(5,7,10,15);
 
-        Numbers multipliedList = numbers.multiplicationWithFactor(10);
+        Numbers multipliedList = numbers.times(10);
 
         assertThat(multipliedList.hasItems(50,70,100,150),is(true));
-    }}
+    }
+
+    @Test
+    public void toCountNumbers(){
+
+        Numbers numbers = new Numbers(1,2,3,4,5);
+
+        int count = numbers.count();
+
+        assertThat(count,equalTo(5));
+
+    }
+
+}

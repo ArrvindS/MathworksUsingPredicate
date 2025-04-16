@@ -14,34 +14,11 @@ public class Numbers {
     public Numbers(List<Integer> numbers) {
         this.numbers.addAll(numbers);
     }
-    public static List<Integer> select(List<Integer> numbers, Predicate<Integer> condition) {
-        List<Integer> selected = new ArrayList<>();
-        for (Integer number : numbers) {
-            if (condition.test(number)) {
-                selected.add(number);
-            }
-        }
-        return selected;
-    }
-    public static Integer sum(List<Integer> numbers){
-        int sum = 0;
-        for(Integer number : numbers) {
-            sum += number;
-        }
-        return sum;
-    }
-    private static boolean range(int number, int low, int high){
+
+    private static boolean isInRange(int number, int low, int high){
         return (low <= number && number <= high);
     }
-    public static List<Integer> inRange(List<Integer> numbers,int low , int high){
-        List<Integer> selected = new ArrayList<>();
-        for (Integer number : numbers) {
-            if (range(number,low,high)) {
-                selected.add(number);
-            }
-        }
-        return selected;
-    }
+
     private List<Integer> toList(int[] items) {
         List<Integer> toVerify = new ArrayList<>();
         for (int number : items) {
@@ -51,7 +28,13 @@ public class Numbers {
     }
 
     public Numbers select(Predicate<Integer> predicate) {
-        return new Numbers(select(numbers,predicate));
+        List<Integer> selected = new ArrayList<>();
+        for (Integer number : numbers) {
+            if (predicate.test(number)) {
+                selected.add(number);
+            }
+        }
+        return new Numbers(selected);
     }
 
     public int size() {
@@ -63,35 +46,42 @@ public class Numbers {
     }
 
     public int sum() {
-        return sum(numbers);
-    }
-
-    public Numbers inRange(int low, int high) {
-        return new Numbers(inRange(numbers,low,high));
-    }
-
-    public int multiplication() {
-        return multiplication(numbers);
-    }
-
-    private int multiplication(List<Integer> numbers) {
-        int multiply = 1;
+        int sum = 0;
         for(Integer number : numbers) {
-            multiply *= number;
+            sum += number;
         }
-        return multiply;
+        return sum;
     }
 
-    public Numbers multiplicationWithFactor(int factor) {
-        return new Numbers(multiplicationWithFactor(numbers,factor));
+    public Numbers inBetween(int low, int high) {
+        List<Integer> selected = new ArrayList<>();
+        for (Integer number : numbers) {
+            if (Predicates.INRANGE.test(number, low, high)) {
+                selected.add(number);
+            }
+        }
+        return new Numbers(selected);
     }
-    private List<Integer> multiplicationWithFactor(List<Integer> numbers, int factor){
-        List<Integer> multipliedList = new ArrayList<>();
+
+    public int product() {
+        int product = 1;
+        for(Integer number : numbers) {
+            product *= number;
+        }
+        return product;
+    }
+
+    public int count(){
+        return this.numbers.size();
+    }
+
+    public Numbers times(int factor) {
+        List<Integer> result = new ArrayList<>();
         for (Integer number : numbers) {
             number *= factor;
-            multipliedList.add(number);
+            result.add(number);
 
         }
-        return multipliedList;
+        return new Numbers(result);
     }
 }

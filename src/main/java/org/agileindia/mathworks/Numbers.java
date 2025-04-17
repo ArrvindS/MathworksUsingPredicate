@@ -84,4 +84,26 @@ public class Numbers {
         }
         return new Numbers(result);
     }
+    public Numbers square() {
+        List<Integer> squaredList=new ArrayList<>();
+
+        for(Integer number : numbers){
+
+            number *= number;
+            squaredList.add(number);
+        }
+        return new Numbers(squaredList);
+    }
+
+    public int findFirstOccurance(int numberTobeFound) {
+
+        for(Integer number : numbers){
+
+            if(number == numberTobeFound)
+                return numbers.indexOf(number) + 1;
+
+        }
+        return -1;
+
+    }
 }
